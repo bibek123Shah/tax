@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<odoo>
+        <record id="payroll_tax_calculation_form" model="ir.ui.view">
+            <field name="name">payroll.tax.calculation.form"</field>
+            <field name="model">hr.payroll.annual.tax.form.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Annual Tax Calculation">
+                    <group>
+                        
+                      
+                        <field name="department_id"/>
+                        <field name="employee_name" placeholder="Name of the Employee" domain ="[('department_id','=',department_id)]"/>
+                    </group>
+                    <group>
+                        
+                        <field name="payslip_id" domain ="[('employee_id','=',employee_name)]"/>
+                        
+                    </group>
+                    <footer>
+                        <button string="Print  Report" name="tax_report" class="btn-secondary" type="object" />
+                        <button string="Cancel" class="btn-secondary" special="cancel" data-hotkey="x"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="hr_payroll_annual_tax_form" model="ir.actions.act_window">
+            <field name="name">Tax Calculation</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">hr.payroll.annual.tax.form.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="payroll_tax_calculation_form"/>
+            <field name="target">new</field>
+        </record>
+        <menuitem
+            id="menu_item_1"
+            name="Annual Tax Calculation"
+            action = "hr_payroll_annual_tax_form"
+            parent = "hr_payroll.menu_hr_payroll_report"/>
+</odoo>

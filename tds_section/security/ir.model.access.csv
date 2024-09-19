@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_tds_section,access.tds.section,model_tds_section,,1,1,1,1
+access_tds_type,access.tds.type,model_tds_type,,1,1,1,1
+access_tds_rate,access.tds.rate,model_tds_rate,,1,1,1,1
+

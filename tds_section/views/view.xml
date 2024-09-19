@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="tds_section_type" model="ir.ui.view">
+        <field name="name">TDS</field>
+        <field name="model">tds.section</field>
+        <field name="arch" type="xml">
+            <tree string="TDS Section">
+                <field name="name"/>
+                <field name="tds_type"/>
+                <field name="revenue_code"/>
+                <field name="tds_rates" widget="many2many_tags" options="{'no_create': True, 'no_create_edit':True}"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="tds_section_form" model="ir.ui.view">
+        <field name="name">TDS Form</field>
+        <field name="model">tds.section</field>
+        <field name="arch" type="xml">
+            <form string="TDS Section">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="tds_type"/>
+                        </group>
+                        <group>
+                            <field name="revenue_code"/>
+                            <field name="tds_rates" widget="many2many_tags"
+                                   options="{'no_create': True, 'no_create_edit':True}"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="tds_section_action" model="ir.actions.act_window">
+        <field name="name">TDS Section</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">tds.section</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                CREATE FIRST TDS VALUE !!
+            </p>
+        </field>
+    </record>
+
+
+    <record id="tds_type_tree" model="ir.ui.view">
+        <field name="name">TDS Type</field>
+        <field name="model">tds.type</field>
+        <field name="arch" type="xml">
+            <tree string="TDS TYpe">
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="tds_type_form" model="ir.ui.view">
+        <field name="name">TDS TYpe Form</field>
+        <field name="model">tds.type</field>
+        <field name="arch" type="xml">
+            <form string="TDS Type">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="tds_type_action" model="ir.actions.act_window">
+        <field name="name">TDS Type</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">tds.type</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                CREATE FIRST TDS Type !!
+            </p>
+        </field>
+    </record>
+
+    <menuitem name="TDS Section" id="tds_section" parent="account.menu_finance_configuration" sequence='10'/>
+    <menuitem name="TDS "
+              id="tds_main_menu"
+              action="tds_section_action" parent="tds_section.tds_section" sequence='10'/>
+
+    <menuitem name="TDS Type"
+              id="tds_type_main_menu"
+              action="tds_type_action" parent="tds_section.tds_section" sequence='10'/>
+</odoo>

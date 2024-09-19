@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_chart_account_tree_tds_ext_view" model="ir.ui.view">
+        <field name="name">tds.view.ext.tree.inherit.account.account</field>
+        <field name="model">account.account</field>
+        <field name="inherit_id" ref="account.view_account_list"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='currency_id']" position="after">
+                <field name="is_tds_account"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_move_form_tds_ext_view" model="ir.ui.view">
+        <field name="name">tds.view.ext.form.inherit.account.move</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form/header/button[@name='button_draft']" position="replace">
+                <button name="button_draft" string="Reset to Draft" type="object" groups="account.group_account_invoice"
+                        invisible="1" data-hotkey="q"/>
+            </xpath>
+
+            <xpath expr="//group[@id='header_right_group']" position="after">
+                <div invisible="move_type != 'in_invoice'">
+                    <group readonly="state == 'posted'" invisible="is_tds_bill == False">
+                        <field name="revenue_heading"/>
+                        <field name="tds_rate" options="{'no_create': True, 'no_create_edit':True}"/>
+                    </group>
+                </div>
+            </xpath>
+            <xpath expr="//group[@id='header_right_group']" position="after">
+                <div invisible="move_type != 'in_invoice'">
+                    <group readonly="state == 'posted'">
+                        <field name="is_tds_bill"/>
+                        <field name="tds_account" invisible="is_tds_bill == False" 
+                            options="{'no_create_edit':true,'no_quick_create':true,'no_create':true}"/>
+                        <field name="tds_label" invisible="is_tds_bill == False"/>
+                    </group>
+                </div>
+            </xpath>
+
+            <xpath expr="//field[@name='tax_totals']" position="after">
+                <div invisible="move_type != 'in_invoice'">
+                    <group invisible="is_tds_bill == False">
+                        <group class="oe_subtotal_footer oe_right text-nowrap">
+                            <field name="tds_amount" widget="monetary"
+                                   options="{'currency_field': 'currency_id'}"/>
+                            <field name="total_amount_after_tds" widget="monetary"
+                                   options="{'currency_field': 'currency_id'}"/>
+                        </group>
+                    </group>
+                </div>
+            </xpath>
+        </field>
+    </record>
+</odoo>

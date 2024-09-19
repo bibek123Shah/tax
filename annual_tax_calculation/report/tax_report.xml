@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="action_tax_report" model="ir.actions.report">
+        <field name="name">Tax Report</field>
+        <field name="model">hr.payroll.annual.tax.form.wizard</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">annual_tax_calculation.tax_report_template</field>
+        <field name="report_file">annual_tax_calculation.tax_report_template</field>
+        <field name="binding_model_id" ref="model_hr_payroll_annual_tax_form_wizard"/>
+        <field name="binding_type">report</field>
+    </record>
+</odoo>
